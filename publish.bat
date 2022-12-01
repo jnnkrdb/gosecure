@@ -15,6 +15,6 @@ if "%tag%" == "" goto END
 
 git tag %tag%
 
-git push origin master
+git push origin %tag%
 
 :END
