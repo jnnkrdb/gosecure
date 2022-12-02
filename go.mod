@@ -4,6 +4,8 @@ go 1.19
 
 require github.com/go-resty/resty/v2 v2.7.0
 
+require github.com/jnnkrdb/corerdb v1.4.2 // indirect
+
 require (
 	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/opentracing/opentracing-go v1.2.0

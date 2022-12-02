@@ -13,8 +13,33 @@ import (
 	"strings"
 
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/jnnkrdb/corerdb/prtcl"
 	"github.com/pkg/errors"
 )
+
+// enforced format to jwx.Claim from jwt.MapClaims
+func ForceJWTtoJWXClaims(jwtMC jwt.MapClaims) (claims Claims, err error) {
+
+	var bytes []byte
+
+	if bytes, err = json.Marshal(jwtMC); err != nil {
+
+		prtcl.Log.Println("error marshalling jwt.MapClaims to json:", err)
+
+		prtcl.PrintObject(jwtMC, string(bytes), err)
+
+	} else {
+
+		if err = json.Unmarshal(bytes, &claims); err != nil {
+
+			prtcl.Log.Println("error unmarshalling json to Claims:", err)
+
+			prtcl.PrintObject(claims, string(bytes), err)
+		}
+	}
+
+	return
+}
 
 // SignClaims signs the given claims using a given key and a method
 func SignClaims(claims jwt.Claims, key interface{}, method jwt.SigningMethod) (string, error) {
